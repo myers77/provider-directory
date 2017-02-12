@@ -1,10 +1,10 @@
 import React from 'react';
 
-import List from './List';
+import DirList from './List';
 
 const App = () =>
   <div>
-    <List />
+    <DirList />
   </div>
 
 export default App;

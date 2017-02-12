@@ -1,12 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const List = ({ data }) =>
-  <div>
+import { List, ListItem } from 'material-ui/List';
+
+const DirList = ({ data }) =>
+  <List>
     {data.map((d, index) =>
-      <div key={index}>{d.last_name}, {d.first_name}</div>
+      <ListItem
+        key={d.email_address}
+        primaryText={`${d.last_name}, ${d.first_name}`}
+      >
+      </ListItem>
     )}
-  </div>
+  </List>
 
 const mapStateToProps = state => ({
   ...state,
@@ -14,4 +20,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-)(List);
+)(DirList);
