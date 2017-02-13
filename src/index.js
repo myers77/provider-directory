@@ -6,28 +6,24 @@ import createLogger from 'redux-logger';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import list from './reducers/list';
+import directoryApp from './reducers/index.js';
 import App from './components/App';
-import data from './data/data.json';
+
 
 // Needed for onTouchTap
 injectTapEventPlugin();
 
-const headers = [
-  'last_name',
-  'first_name',
-  'email_address',
-  'specialty',
-  'practice_name'
-]
+// const initialState = {
+//   attributes,
+// }
 
-const initialState = {
-  data,
-  headers,
-}
-
-const enhancer = compose(applyMiddleware(createLogger()));
-const store = createStore(list, initialState, enhancer);
+// const enhancer = compose(applyMiddleware(createLogger()));
+// const store = createStore(directoryApp, initialState, enhancer);
+// const store = createStore(directoryApp, enhancer);
+const store = createStore(
+  directoryApp, /* preloadedState, */
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 render(
   <Provider store={store}>

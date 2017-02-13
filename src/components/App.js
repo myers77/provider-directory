@@ -14,6 +14,6 @@ const App = () =>
   <div style={style}>
     <Header />
     <List />
-  </div>
+  </div>;
 
 export default App;
