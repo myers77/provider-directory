@@ -22,10 +22,6 @@ const headerStyle = {
   fontWeight: 500,
 }
 
-const logClick = e => {
-
-}
-
 const List = ({ data, headers }) => {
 
   const titleCase = input => {
@@ -37,10 +33,9 @@ const List = ({ data, headers }) => {
 
   return (
     <Paper zDepth={1}>
-      <Table>
-        <TableHeader
-          displaySelectAll={false}
-        >
+      <Table multiSelectable={true}>
+      
+        <TableHeader displaySelectAll={false}>
           <TableRow>
             {headers.map((header, index) => 
               <TableHeaderColumn key={index}>
@@ -49,19 +44,19 @@ const List = ({ data, headers }) => {
             )}
           </TableRow>
         </TableHeader>
-          <TableBody
-            showRowHover={true}
-          >
-          {data.map((d, index) =>
-            <TableRow key={index}>
-              {headers.map((header, index) => 
-                <TableRowColumn key={index}>
+
+        <TableBody showRowHover={true}>
+          {data.map((d, rowIndex) =>
+            <TableRow key={rowIndex}>
+              {headers.map((header, colIndex) => 
+                <TableRowColumn key={colIndex}>
                   {d[header]}
                 </TableRowColumn>
-             )}
-            </TableRow>
-          )}
+              )}
+              </TableRow>
+            )}
         </TableBody>
+
       </Table>
     </Paper>
   );
