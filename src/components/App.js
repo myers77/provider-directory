@@ -1,10 +1,19 @@
 import React from 'react';
 
-import DirList from './List';
+import List from './List';
+import Header from './Header';
+
+const style = {
+  fontFamily: 'Roboto, sans-serif',
+  textAlign: 'center',
+  width: '80%',
+  margin: 'auto',
+};
 
 const App = () =>
-  <div>
-    <DirList />
+  <div style={style}>
+    <Header />
+    <List />
   </div>
 
 export default App;

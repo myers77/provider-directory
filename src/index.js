@@ -13,8 +13,17 @@ import data from './data/data.json';
 // Needed for onTouchTap
 injectTapEventPlugin();
 
+const headers = [
+  'last_name',
+  'first_name',
+  'email_address',
+  'specialty',
+  'practice_name'
+]
+
 const initialState = {
   data,
+  headers,
 }
 
 const enhancer = compose(applyMiddleware(createLogger()));
