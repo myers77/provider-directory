@@ -28,24 +28,17 @@ const ListAddRow = ({ ...otherProps, list, actions }) => {
   };
 
   return (
-    <TableRow {...otherProps}>
-      {otherProps.children[0] /* checkbox passed down from Table-Header */}
+    <tr>
       {list.details.map(header =>
-
-        <TableHeaderColumn
+        <th
           key={header}
         >
-                        <ReactCSSTransitionGroup
-          transitionName="example"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}>
-            <TextField key={header}
-              hintText={titleCase(header)}
-            /><br />
-        </ReactCSSTransitionGroup>
-        </TableHeaderColumn>,
+          <TextField key={header}
+            hintText={titleCase(header)}
+          /><br />
+        </th>,
       )}
-    </TableRow>
+    </tr>
   );
 };
 

@@ -16,26 +16,23 @@ const addRowStyle = {
 };
 
 const List = ({ list, actions }) => {
-  const handleRowSelection = (selectedRows) => {
-    const getObject = n =>
-      nth(n, list.searchedData);
-
-    const selectedEntries = map(getObject, selectedRows);
-    actions.updateSelectedEntries(selectedEntries);
-  };
-
   return (
     <Paper zDepth={1}>
-      <Table multiSelectable onRowSelection={handleRowSelection}>
-        <TableHeader displaySelectAll={false}>
+      <table>
+        <thead>
           <ListHeaderActionsRow />
           {list.showAddRow ? <ListAddRow style={addRowStyle} /> : null}
           <ListHeaderRow />
-        </TableHeader>
-        <TableBody showRowHover deselectOnClickaway={false}>
-          {list.searchedData.map(d => <ListBodyRow key={d.email_address} att={d} />)}
-        </TableBody>
-      </Table>
+        </thead>
+        <tbody>
+          {list.searchedData.map(d =>
+            <ListBodyRow
+              key={d.email_address}
+              att={d}
+            />,
+          )}
+        </tbody>
+      </table>
     </Paper>
   );
 };

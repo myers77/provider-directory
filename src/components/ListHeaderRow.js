@@ -7,7 +7,6 @@ import FontIcon from 'material-ui/FontIcon';
 import * as Actions from '../actions';
 
 const iconStyle = {
-  position: 'absolute',
   fontSize: 18,
   margin: 6,
   left: -6,
@@ -15,6 +14,7 @@ const iconStyle = {
 };
 
 const headerStyle = {
+  position: 'relative',
   cursor: 'pointer',
 };
 
@@ -36,23 +36,23 @@ const ListHeaderRow = ({ ...otherProps, list, actions }) => {
     return title;
   };
 
-  const handleOnClickHeader = (e, rowIndex, colIndex) => {
-    if (colIndex > 0) {
-      if (list.details[colIndex - 1] === list.sorting) {
+  const handleOnClickHeader = (header) => {
+    console.log(header);
+      if (header === list.sorting) {
         actions.reverse();
       } else {
-        actions.sort(list.details[colIndex - 1]);
+        actions.sort(header);
       }
-    }
   };
 
   return (
-    <TableRow onCellClick={handleOnClickHeader} {...otherProps} style={rowStyle}>
-      {otherProps.children[0] /* checkbox passed down from Table-Header */}
+    <tr style={rowStyle}>
+      <th />
       {list.details.map(header =>
-        <TableHeaderColumn
+        <th
           key={header}
-          style={header === list.sorting ? sortingHeaderstyle : headerStyle }
+          onClick={() => handleOnClickHeader(header)}
+          style={header === list.sorting ? sortingHeaderstyle : headerStyle}
         >
           {header === list.sorting &&
             <FontIcon className="material-icons" style={iconStyle}>
@@ -60,9 +60,9 @@ const ListHeaderRow = ({ ...otherProps, list, actions }) => {
             </FontIcon>
           }
           {titleCase(header)}
-        </TableHeaderColumn>,
+        </th>,
       )}
-    </TableRow>
+    </tr>
   );
 };
 

@@ -1,5 +1,5 @@
-import { compose, contains, curry, filter, isEmpty, map, match, prop, remove, reverse, sortBy, toLower, values, without } from 'ramda';
-import { REVERSE, SORT, SEARCH, TOGGLE_SHOW_ADD_ROW, UPDATE_SELECTED_ROWS, DELETE_SELECTED_ROWS } from '../actions';
+import { append, compose, contains, curry, filter, isEmpty, map, match, prop, remove, reverse, sortBy, toLower, values, without } from 'ramda';
+import { REVERSE, SORT, SEARCH, TOGGLE_SHOW_ADD_ROW, TOGGLE_SELECTED_ENTRY, DELETE_SELECTED_ROWS } from '../actions';
 import seedData from '../data/data.json';
 
 const details = [
@@ -20,6 +20,7 @@ const list = (state = {
   searchedData: sortBy(compose(toLower, prop(sorting)), seedData),
   searchQuery: '',
   showAddRow: false,
+  selectedEntries: [],
 }, action) => {
   switch (action.type) {
     case REVERSE:
@@ -67,8 +68,15 @@ const list = (state = {
         ...state,
         showAddRow: !state.showAddRow,
       };
-    case UPDATE_SELECTED_ROWS: {
-      const { selectedEntries } = action;
+    case TOGGLE_SELECTED_ENTRY: {
+      const { selectedEntry } = action;
+      let { selectedEntries } = action;
+        console.log(selectedEntry);
+      if (!contains(selectedEntry, selectedEntries)) {
+        selectedEntries = append(selectedEntry, selectedEntries);
+      } else {
+        selectedEntries = without([selectedEntry], selectedEntries);
+      }
       return {
         ...state,
         selectedEntries,
@@ -77,7 +85,6 @@ const list = (state = {
     case DELETE_SELECTED_ROWS: {
       const { selectedEntries, data } = action;
       const newData = without(selectedEntries, data);
-      console.log(selectedEntries);
       return {
         ...state,
         data: newData,

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { TableHeaderColumn, TableRow } from 'material-ui/Table';
 import FontIcon from 'material-ui/FontIcon';
 import TextField from 'material-ui/TextField';
 
@@ -27,9 +26,8 @@ const ListHeaderActionsRow = ({ ...otherProps, list, actions }) => {
   };
 
   return (
-    <TableRow {...otherProps}>
-      {otherProps.children[0] /* checkbox passed down from Table-Header */}
-      <TableHeaderColumn colSpan="2" style={{ textAlign: 'center' }}>
+    <tr>
+      <th colSpan="2" style={{ textAlign: 'center' }}>
         <FontIcon
           className="material-icons"
           onClick={handleClickAdd}
@@ -37,8 +35,8 @@ const ListHeaderActionsRow = ({ ...otherProps, list, actions }) => {
         >
           add
         </FontIcon>
-      </TableHeaderColumn>
-      <TableHeaderColumn colSpan="2" style={{ textAlign: 'center' }}>
+      </th>
+      <th colSpan="2" style={{ textAlign: 'center' }}>
         <FontIcon className="material-icons">
           search
         </FontIcon>
@@ -46,8 +44,8 @@ const ListHeaderActionsRow = ({ ...otherProps, list, actions }) => {
           hintText="search"
           onChange={handleSearchFieldChange}
         /><br />
-      </TableHeaderColumn>
-      <TableHeaderColumn colSpan="1">
+      </th>
+      <th colSpan="1">
         <FontIcon
           className="material-icons"
           onClick={handleClickDelete}
@@ -55,8 +53,8 @@ const ListHeaderActionsRow = ({ ...otherProps, list, actions }) => {
         >
           delete
         </FontIcon>
-      </TableHeaderColumn>
-    </TableRow>
+      </th>
+    </tr>
   );
 };
 
