@@ -1,38 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { filter, map, match } from 'ramda';
+import { filter, map, match, nth } from 'ramda';
 import { Table, TableBody, TableHeader } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 
+import ListAddRow from './ListAddRow';
 import ListBodyRow from './ListBodyRow';
 import ListHeaderRow from './ListHeaderRow';
 import ListHeaderActionsRow from './ListHeaderActionsRow';
 import * as Actions from '../actions';
 
-const List = ({ list, actions }) => {
-  // const containsMatch = (object, query) => map(match(query), object);
-  const containsMatch = (object, query) => console.log(object, query);
+const addRowStyle = {
+  animationTimingFunction: 'ease-in',
+};
 
-  const renderData = () => {
-    if (!list.isSearched) {
-      list.data.map(d => <ListBodyRow att={d} />);
-    } else {
-      const re = new RegExp(list.searchQuery, 'i');
-      // const searchedList = map(filter(match()), data);
-      const getSearchedlist = filter(containsMatch(re), list.data);
-      getSearchedlist();
-    }
+const List = ({ list, actions }) => {
+  const handleRowSelection = (selectedRows) => {
+    const getObject = n =>
+      nth(n, list.searchedData);
+
+    const selectedEntries = map(getObject, selectedRows);
+    actions.updateSelectedEntries(selectedEntries);
   };
 
   return (
     <Paper zDepth={1}>
-      <Table multiSelectable>
+      <Table multiSelectable onRowSelection={handleRowSelection}>
         <TableHeader displaySelectAll={false}>
-            <ListHeaderActionsRow />
-            <ListHeaderRow />
+          <ListHeaderActionsRow />
+          {list.showAddRow ? <ListAddRow style={addRowStyle} /> : null}
+          <ListHeaderRow />
         </TableHeader>
-        <TableBody showRowHover>
+        <TableBody showRowHover deselectOnClickaway={false}>
           {list.searchedData.map(d => <ListBodyRow key={d.email_address} att={d} />)}
         </TableBody>
       </Table>

@@ -39,6 +39,6 @@ const Header = () =>
   <div style={headerStyle}>
     <div style={mediumFontWeight}>Provider Directory</div>
     <div style={subheaderStyle}><hr style={hrStyle} /><span style={white}>2.0</span></div>
-  </div>
+  </div>;
 
 export default Header;

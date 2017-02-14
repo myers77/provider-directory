@@ -1,10 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { TableHeaderColumn, TableRow } from 'material-ui/Table';
 import FontIcon from 'material-ui/FontIcon';
+import TextField from 'material-ui/TextField';
 
 import * as Actions from '../actions';
+import './List.css';
 
 const iconStyle = {
   fontSize: 18,
@@ -16,38 +19,30 @@ const sortingHeader = {
   color: '#222',
 };
 
-const ListHeaderRow = ({ ...otherProps, list, actions }) => {
+const ListAddRow = ({ ...otherProps, list, actions }) => {
   const titleCase = (input) => {
-    let title = input.replace(/_/, ' ');
-    title = title.replace(/\b[a-z](?=[a-z]{2})/g,
+    input = input.replace(/_/, ' ');
+    input = input.replace(/\b[a-z](?=[a-z]{2})/g,
       letter => letter.toUpperCase());
-    return title;
-  };
-
-  const handleOnClickHeader = (e, rowIndex, colIndex) => {
-    if (colIndex > 0) {
-      if (list.details[colIndex - 1] === list.sorting) {
-        actions.reverse();
-      } else {
-        actions.sort(list.details[colIndex - 1]);
-      }
-    }
+    return input;
   };
 
   return (
-    <TableRow onCellClick={handleOnClickHeader} {...otherProps}>
+    <TableRow {...otherProps}>
       {otherProps.children[0] /* checkbox passed down from Table-Header */}
       {list.details.map(header =>
+
         <TableHeaderColumn
           key={header}
-          style={header === list.sorting ? sortingHeader : null}
         >
-          {header === list.sorting &&
-            <FontIcon className="material-icons" style={iconStyle}>
-              { list.reversed ? 'arrow_downward' : 'arrow_upward' }
-            </FontIcon>
-          }
-          {titleCase(header)}
+                        <ReactCSSTransitionGroup
+          transitionName="example"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+            <TextField key={header}
+              hintText={titleCase(header)}
+            /><br />
+        </ReactCSSTransitionGroup>
         </TableHeaderColumn>,
       )}
     </TableRow>
@@ -65,4 +60,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ListHeaderRow);
+)(ListAddRow);

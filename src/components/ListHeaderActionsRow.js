@@ -13,11 +13,23 @@ const ListHeaderActionsRow = ({ ...otherProps, list, actions }) => {
     actions.sort(list.sorting);
   };
 
+  const handleClickAdd = () => {
+    actions.toggleShowAddRow();
+  };
+
+  const handleClickDelete = () => {
+    actions.deleteSelectedEntries(list.selectedEntries, list.data);
+    actions.sort(list.sorting);
+  };
+
   return (
     <TableRow {...otherProps}>
       {otherProps.children[0] /* checkbox passed down from Table-Header */}
       <TableHeaderColumn colSpan="2" style={{ textAlign: 'center' }}>
-        <FontIcon className="material-icons">
+        <FontIcon
+          className="material-icons"
+          onClick={handleClickAdd}
+        >
           add
         </FontIcon>
       </TableHeaderColumn>
@@ -31,7 +43,10 @@ const ListHeaderActionsRow = ({ ...otherProps, list, actions }) => {
         /><br />
       </TableHeaderColumn>
       <TableHeaderColumn colSpan="1">
-        <FontIcon className="material-icons">
+        <FontIcon
+          className="material-icons"
+          onClick={handleClickDelete}
+        >
           delete
         </FontIcon>
       </TableHeaderColumn>

@@ -27,9 +27,9 @@ const ListBodyRow = ({ att, ...otherProps, list, actions }) =>
           searchWords={[list.searchQuery]}
           textToHighlight={att[detail]}
         />
-      </TableRowColumn>
+      </TableRowColumn>,
     )}
-  </TableRow>
+  </TableRow>;
 
 const mapStateToProps = state => ({
   ...state,

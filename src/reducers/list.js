@@ -1,5 +1,5 @@
-import { compose, contains, filter, isEmpty, map, match, prop, reverse, sortBy, toLower, values } from 'ramda';
-import { REVERSE, SORT, SEARCH } from '../actions';
+import { compose, contains, curry, filter, isEmpty, map, match, prop, remove, reverse, sortBy, toLower, values, without } from 'ramda';
+import { REVERSE, SORT, SEARCH, TOGGLE_SHOW_ADD_ROW, UPDATE_SELECTED_ROWS, DELETE_SELECTED_ROWS } from '../actions';
 import seedData from '../data/data.json';
 
 const details = [
@@ -19,6 +19,7 @@ const list = (state = {
   isSearched: false,
   searchedData: sortBy(compose(toLower, prop(sorting)), seedData),
   searchQuery: '',
+  showAddRow: false,
 }, action) => {
   switch (action.type) {
     case REVERSE:
@@ -32,8 +33,8 @@ const list = (state = {
       const sortByAttr = sortBy(compose(toLower, prop(order)));
       return {
         ...state,
-        searchedData: state.reversed ? reverse(sortByAttr(state.searchedData))
-          : sortByAttr(state.searchedData),
+        searchedData: state.reversed ? reverse(sortByAttr(state.data))
+          : sortByAttr(state.data),
         sorting: order,
         reversed: state.reversed,
       };
@@ -51,9 +52,7 @@ const list = (state = {
         const containsMatch = object =>
           contains(true, map(matches, values(object)));
 
-        // const searchedList = map(filter(match()), data);
         searchedData = filter(containsMatch, state.data);
-        console.log(searchedData);
       }
 
       return {
@@ -61,6 +60,27 @@ const list = (state = {
         searchQuery,
         isSearched: !!searchQuery,
         searchedData,
+      };
+    }
+    case TOGGLE_SHOW_ADD_ROW:
+      return {
+        ...state,
+        showAddRow: !state.showAddRow,
+      };
+    case UPDATE_SELECTED_ROWS: {
+      const { selectedEntries } = action;
+      return {
+        ...state,
+        selectedEntries,
+      };
+    }
+    case DELETE_SELECTED_ROWS: {
+      const { selectedEntries, data } = action;
+      const newData = without(selectedEntries, data);
+      console.log(selectedEntries);
+      return {
+        ...state,
+        data: newData,
       };
     }
     default:
