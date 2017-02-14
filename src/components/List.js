@@ -1,75 +1,42 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { filter, map, match } from 'ramda';
 
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-}
-from 'material-ui/Table';
+import { Table, TableBody, TableHeader } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
-import FontIcon from 'material-ui/FontIcon';
+
+import ListBodyRow from './ListBodyRow';
+import ListHeaderRow from './ListHeaderRow';
+import ListHeaderActionsRow from './ListHeaderActionsRow';
 
 import * as Actions from '../actions';
 
-const iconStyle = {
-  fontSize: 18,
-  margin: 6,
-};
-
-const sortingHeaderStyle = {
-  fontWeight: 500,
-};
-
 const List = ({ list, actions }) => {
+  // const containsMatch = (object, query) => map(match(query), object);
+  const containsMatch = (object, query) => console.log(object, query);
 
-  const titleCase = (input) => {
-    input = input.replace(/_/, ' ');
-    input = input.replace(/\b[a-z](?=[a-z]{2})/g,
-      letter => letter.toUpperCase());
-    return input;
-  };
-
-  const handleOnClickHeader = (e, rowIndex, colIndex) => {
-    if (colIndex > 0) {
-      if (list.details[colIndex - 1] === list.sorting) {
-        actions.reverse();
-      } else {
-        actions.sort(list.details[colIndex - 1]);
-      }
+  const renderData = () => {
+    if (!list.isSearched) {
+      list.data.map(d => <ListBodyRow att={d} />);
+    } else {
+      const re = new RegExp(list.searchQuery, 'i');
+      // const searchedList = map(filter(match()), data);
+      const getSearchedlist = filter(containsMatch(re), list.data);
+      getSearchedlist();
     }
   };
 
   return (
     <Paper zDepth={1}>
       <Table multiSelectable>
-
         <TableHeader displaySelectAll={false}>
-          <TableRow onCellClick={handleOnClickHeader}>
-            {list.details.map((header, index) =>
-              <TableHeaderColumn key={header}>
-                {titleCase(header)}
-              </TableHeaderColumn>
-            )}
-          </TableRow>
+            <ListHeaderActionsRow />
+            <ListHeaderRow />
         </TableHeader>
-
         <TableBody showRowHover>
-          {list.data.map((d, rowIndex) =>
-            <TableRow key={d.email_address}>
-              {list.details.map((detail, colIndex) =>
-                <TableRowColumn key={colIndex}>
-                  {d[detail]}
-                </TableRowColumn>
-              )}
-            </TableRow>
-          )}
+          {list.data.map(d => <ListBodyRow key={d.email_address} att={d} />)}
         </TableBody>
-
       </Table>
     </Paper>
   );
