@@ -10,6 +10,7 @@ import * as Actions from '../actions';
 const ListHeaderActionsRow = ({ ...otherProps, list, actions }) => {
   const handleSearchFieldChange = (e, newValue) => {
     actions.search(newValue);
+    actions.sort(list.sorting);
   };
 
   return (

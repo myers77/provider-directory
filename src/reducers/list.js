@@ -1,6 +1,6 @@
 import { compose, contains, filter, isEmpty, map, match, prop, reverse, sortBy, toLower, values } from 'ramda';
 import { REVERSE, SORT, SEARCH } from '../actions';
-import seedData from '../data/giant_data.json';
+import seedData from '../data/data.json';
 
 const details = [
   'last_name',
@@ -32,9 +32,10 @@ const list = (state = {
       const sortByAttr = sortBy(compose(toLower, prop(order)));
       return {
         ...state,
-        searchedData: sortByAttr(state.searchedData),
+        searchedData: state.reversed ? reverse(sortByAttr(state.searchedData))
+          : sortByAttr(state.searchedData),
         sorting: order,
-        reversed: false,
+        reversed: state.reversed,
       };
     }
     case SEARCH: {
