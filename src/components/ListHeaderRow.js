@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { TableHeaderColumn, TableRow } from 'material-ui/Table';
 import FontIcon from 'material-ui/FontIcon';
 
@@ -37,7 +36,7 @@ const ListHeaderRow = ({ ...otherProps, list, actions }) => {
 
   return (
     <TableRow onCellClick={handleOnClickHeader} {...otherProps}>
-      {otherProps.children[0] /* checkbox passed down from Table-Body */}
+      {otherProps.children[0] /* checkbox passed down from Table-Header */}
       {list.details.map(header =>
         <TableHeaderColumn
           key={header}

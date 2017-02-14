@@ -7,14 +7,41 @@ const headerStyle = {
   color: 'rgba(0,0,0,0.87)',
 };
 
+const subheaderStyle = {
+  fontSize: 24,
+  backgroundColor: '#fff',
+  position: 'relative',
+  margin: 'auto',
+  top: -16,
+  height: 24,
+  width: '40%',
+};
+
+const white = {
+  backgroundColor: '#fff',
+  paddingLeft: 12,
+  paddingRight: 12,
+  zIndex: 2,
+  position: 'absolute',
+};
+
+const hrStyle = {
+  border: 0,
+  height: 1,
+  position: 'relative',
+  top: 26,
+  zIndex: 1,
+  backgroundImage: 'linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0))',
+};
+
 const mediumFontWeight = {
   letterSpacing: 1,
 };
 
-const Header = () => (
+const Header = () =>
   <div style={headerStyle}>
     <div style={mediumFontWeight}>Provider Directory</div>
+    <div style={subheaderStyle}><hr style={hrStyle} /><span style={white}>2.0</span></div>
   </div>
-);
 
 export default Header;

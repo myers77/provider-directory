@@ -1,12 +1,6 @@
 import { compose, prop, reverse, sortBy, toLower } from 'ramda';
-
-import {
-  REVERSE,
-  SORT,
-  SEARCH,
-} from '../actions';
-
-import data from '../data/data.json';
+import { REVERSE, SORT, SEARCH } from '../actions';
+import seedData from '../data/data.json';
 
 const details = [
   'last_name',
@@ -15,22 +9,15 @@ const details = [
   'specialty',
   'practice_name',
 ];
-
 const sorting = details[0];
-const reversed = false;
-const isSearched = false;
-const searchQuery = '';
-const searchedData = [];
-
-const sortedData = sortBy(compose(toLower, prop(sorting)), data);
 
 const list = (state = {
-  data: sortedData,
+  data: sortBy(compose(toLower, prop(sorting)), seedData),
   details,
   sorting,
-  reversed,
-  isSearched,
-  searchedData,
+  reversed: false,
+  isSearched: false,
+  searchQuery: '',
 }, action) => {
   switch (action.type) {
     case REVERSE:
@@ -40,20 +27,23 @@ const list = (state = {
         reversed: !state.reversed,
       };
     case SORT: {
-      const sortByAttr = sortBy(compose(toLower, prop(action.order)));
+      const { order } = action;
+      const sortByAttr = sortBy(compose(toLower, prop(order)));
       return {
         ...state,
         data: sortByAttr(state.data),
-        sorting: action.order,
+        sorting: order,
         reversed: false,
       };
     }
-    case SEARCH:
+    case SEARCH: {
+      const { searchQuery } = action;
       return {
         ...state,
-        searchQuery: action.searchQuery,
+        searchQuery,
         isSearched: !!searchQuery,
       };
+    }
     default:
       return state;
   }

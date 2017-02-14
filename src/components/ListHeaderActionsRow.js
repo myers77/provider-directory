@@ -1,12 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import {
-  TableHeaderColumn,
-  TableRow,
-}
-from 'material-ui/Table';
+import { TableHeaderColumn, TableRow } from 'material-ui/Table';
 import FontIcon from 'material-ui/FontIcon';
 import TextField from 'material-ui/TextField';
 
