@@ -33,7 +33,7 @@ const List = ({ list, actions }) => {
             <ListHeaderRow />
         </TableHeader>
         <TableBody showRowHover>
-          {list.data.map(d => <ListBodyRow key={d.email_address} att={d} />)}
+          {list.searchedData.map(d => <ListBodyRow key={d.email_address} att={d} />)}
         </TableBody>
       </Table>
     </Paper>

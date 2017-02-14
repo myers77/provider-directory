@@ -1,6 +1,6 @@
-import { compose, prop, reverse, sortBy, toLower } from 'ramda';
+import { compose, contains, filter, isEmpty, map, match, prop, reverse, sortBy, toLower, values } from 'ramda';
 import { REVERSE, SORT, SEARCH } from '../actions';
-import seedData from '../data/data.json';
+import seedData from '../data/giant_data.json';
 
 const details = [
   'last_name',
@@ -17,13 +17,14 @@ const list = (state = {
   sorting,
   reversed: false,
   isSearched: false,
+  searchedData: sortBy(compose(toLower, prop(sorting)), seedData),
   searchQuery: '',
 }, action) => {
   switch (action.type) {
     case REVERSE:
       return {
         ...state,
-        data: reverse(state.data),
+        searchedData: reverse(state.searchedData),
         reversed: !state.reversed,
       };
     case SORT: {
@@ -31,17 +32,34 @@ const list = (state = {
       const sortByAttr = sortBy(compose(toLower, prop(order)));
       return {
         ...state,
-        data: sortByAttr(state.data),
+        searchedData: sortByAttr(state.searchedData),
         sorting: order,
         reversed: false,
       };
     }
     case SEARCH: {
       const { searchQuery } = action;
+      let searchedData = state.data;
+
+      if (searchQuery) {
+        const matches = (object) => {
+          const re = new RegExp(searchQuery, 'i');
+          return !isEmpty(match(re, object));
+        };
+
+        const containsMatch = object =>
+          contains(true, map(matches, values(object)));
+
+        // const searchedList = map(filter(match()), data);
+        searchedData = filter(containsMatch, state.data);
+        console.log(searchedData);
+      }
+
       return {
         ...state,
         searchQuery,
         isSearched: !!searchQuery,
+        searchedData,
       };
     }
     default:
