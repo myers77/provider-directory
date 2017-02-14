@@ -7,13 +7,25 @@ import FontIcon from 'material-ui/FontIcon';
 import * as Actions from '../actions';
 
 const iconStyle = {
+  position: 'absolute',
   fontSize: 18,
   margin: 6,
+  left: -6,
+  top: 12,
 };
 
-const sortingHeader = {
+const headerStyle = {
+  cursor: 'pointer',
+};
+
+const sortingHeaderstyle = {
   fontWeight: 500,
   color: '#222',
+  cursor: 'pointer',
+};
+
+const rowStyle = {
+  userSelect: 'none',
 };
 
 const ListHeaderRow = ({ ...otherProps, list, actions }) => {
@@ -35,12 +47,12 @@ const ListHeaderRow = ({ ...otherProps, list, actions }) => {
   };
 
   return (
-    <TableRow onCellClick={handleOnClickHeader} {...otherProps}>
+    <TableRow onCellClick={handleOnClickHeader} {...otherProps} style={rowStyle}>
       {otherProps.children[0] /* checkbox passed down from Table-Header */}
       {list.details.map(header =>
         <TableHeaderColumn
           key={header}
-          style={header === list.sorting ? sortingHeader : null}
+          style={header === list.sorting ? sortingHeaderstyle : headerStyle }
         >
           {header === list.sorting &&
             <FontIcon className="material-icons" style={iconStyle}>

@@ -5,30 +5,35 @@ const headerStyle = {
   fontSize: 48,
   textAlign: 'center',
   color: 'rgba(0,0,0,0.87)',
+  display: 'inline-block',
+  height: 102,
 };
 
 const subheaderStyle = {
-  fontSize: 24,
   backgroundColor: '#fff',
-  position: 'relative',
   margin: 'auto',
   height: 24,
   width: '40%',
 };
 
 const white = {
+  position: 'relative',
+  fontSize: 24,
   backgroundColor: '#fff',
   paddingLeft: 12,
   paddingRight: 12,
-  position: 'absolute',
-  top: -14,
+  margin: 'auto',
+  top: -62,
 };
 
 const hrStyle = {
   border: 0,
   height: 1,
   position: 'relative',
-  backgroundImage: 'linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.87), rgba(0, 0, 0, 0))',
+  backgroundImage: `linear-gradient(to right, 
+                    rgba(0, 0, 0, 0),
+                    rgba(0, 0, 0, 0.87),
+                    rgba(0, 0, 0, 0))`,
 };
 
 const mediumFontWeight = {
@@ -38,7 +43,8 @@ const mediumFontWeight = {
 const Header = () =>
   <div style={headerStyle}>
     <div style={mediumFontWeight}>Provider Directory</div>
-    <div style={subheaderStyle}><hr style={hrStyle} /><span style={white}>2.0</span></div>
+    <hr style={hrStyle} />
+    <span style={white}>2.0</span>
   </div>;
 
 export default Header;

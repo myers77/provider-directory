@@ -7,6 +7,10 @@ import TextField from 'material-ui/TextField';
 
 import * as Actions from '../actions';
 
+const iconStyle = {
+  cursor: 'pointer',
+};
+
 const ListHeaderActionsRow = ({ ...otherProps, list, actions }) => {
   const handleSearchFieldChange = (e, newValue) => {
     actions.search(newValue);
@@ -29,6 +33,7 @@ const ListHeaderActionsRow = ({ ...otherProps, list, actions }) => {
         <FontIcon
           className="material-icons"
           onClick={handleClickAdd}
+          style={iconStyle}
         >
           add
         </FontIcon>
@@ -46,6 +51,7 @@ const ListHeaderActionsRow = ({ ...otherProps, list, actions }) => {
         <FontIcon
           className="material-icons"
           onClick={handleClickDelete}
+          style={iconStyle}
         >
           delete
         </FontIcon>
