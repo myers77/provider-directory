@@ -8,6 +8,8 @@ import { cyan500 } from 'material-ui/styles/colors';
 
 import * as Actions from '../actions';
 
+import './table.css';
+
 const rowColumnStyle = {
   whiteSpace: 'normal',
   wordWrap: 'break-word',
@@ -24,22 +26,22 @@ const ListBodyRow = ({ att, ...otherProps, list, actions }) => {
   };
 
   return (
-  <tr onClick={handleRowSelection}>
-    <td>
-    <Checkbox
-      checked={contains(att, list.selectedEntries)}
-    />
-    </td>
-    {list.details.map(detail =>
-      <td key={detail} style={rowColumnStyle}>
-        <Highlighter
-          highlightStyle={highlightStyle}
-          searchWords={[list.searchQuery]}
-          textToHighlight={att[detail]}
+    <tr onClick={handleRowSelection}>
+      <td className="checkbox">
+        <Checkbox
+          checked={contains(att, list.selectedEntries)}
         />
-      </td>,
-    )}
-  </tr>
+      </td>
+      {list.details.map(detail =>
+        <td key={detail} style={rowColumnStyle}>
+          <Highlighter
+            highlightStyle={highlightStyle}
+            searchWords={[list.searchQuery]}
+            textToHighlight={att[detail]}
+          />
+        </td>,
+      )}
+    </tr>
   );
 };
 

@@ -2,6 +2,7 @@ import { append, compose, contains, curry, filter, isEmpty, map, match, prop, re
 import { REVERSE, SORT, SEARCH, TOGGLE_SHOW_ADD_ROW, TOGGLE_SELECTED_ENTRY, DELETE_SELECTED_ROWS } from '../actions';
 import seedData from '../data/data.json';
 
+
 const details = [
   'last_name',
   'first_name',
@@ -34,8 +35,8 @@ const list = (state = {
       const sortByAttr = sortBy(compose(toLower, prop(order)));
       return {
         ...state,
-        searchedData: state.reversed ? reverse(sortByAttr(state.data))
-          : sortByAttr(state.data),
+        searchedData: state.reversed ? reverse(sortByAttr(state.searchedData))
+          : sortByAttr(state.searchedData),
         sorting: order,
         reversed: state.reversed,
       };

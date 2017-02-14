@@ -22,6 +22,7 @@ const ListHeaderActionsRow = ({ ...otherProps, list, actions }) => {
 
   const handleClickDelete = () => {
     actions.deleteSelectedEntries(list.selectedEntries, list.data);
+    actions.search(list.searchQuery);
     actions.sort(list.sorting);
   };
 
