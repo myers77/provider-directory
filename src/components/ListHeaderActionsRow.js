@@ -53,13 +53,13 @@ const ListHeaderActionsRow = ({ list, actions }) => {
   return (
     <tr style={rowStyle}>
       <th colSpan="5" style={{ textAlign: 'left' }}>
-          <FontIcon
-            className="material-icons"
-            style={buttonStyle}
-            color={'white'}
-          >
-            search
-          </FontIcon>
+        <FontIcon
+          className="material-icons"
+          style={buttonStyle}
+          color={'white'}
+        >
+          search
+        </FontIcon>
         <TextField
           className="search-field"
           hintText="search"

@@ -33,7 +33,6 @@ from '../actions';
 
 import seedData from '../data/data.json';
 
-
 const details = [
   'last_name',
   'first_name',
@@ -49,6 +48,20 @@ const newProvider = {
   email_address: '',
   specialty: '',
   practice_name: '',
+};
+
+const initialState = {
+  data: sortBy(compose(toLower, prop(sorting)), seedData),
+  details,
+  sorting,
+  reversed: false,
+  isSearched: false,
+  searchedData: sortBy(compose(toLower, prop(sorting)), seedData),
+  searchQuery: '',
+  showAddRow: false,
+  selectedEntries: [],
+  addPopover: false,
+  newProvider,
 };
 
 const list = (state = {

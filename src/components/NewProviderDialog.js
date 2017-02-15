@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { isEmpty, map, match } from 'ramda';
 
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -23,8 +22,6 @@ const NewProviderDialog = ({ list, actions }) => {
     actions.search(list.searchQuery);
     actions.sort(list.sorting);
   };
-
-  const requiredData = ['first_name', 'last_name', 'email_address'];
 
   const completedInfo =
     list.newProvider.last_name &&

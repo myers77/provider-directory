@@ -10,35 +10,34 @@ const headerStyle = {
   letterSpacing: 1.5,
 };
 
-const white = {
+const versionStyle = {
   position: 'relative',
   fontSize: 24,
+  width: '2em',
   backgroundColor: '#fff',
   paddingLeft: 12,
   paddingRight: 12,
   margin: 'auto',
-  top: -62,
+  letterSpacing: 2,
+  top: -26,
 };
 
 const hrStyle = {
+  marginTop: 24,
+  marginBottom: 12,
   border: 0,
   height: 1,
-  position: 'relative',
   backgroundImage: `linear-gradient(to right, 
                     rgba(0, 0, 0, 0),
                     rgba(0, 0, 0, 0.87),
                     rgba(0, 0, 0, 0))`,
 };
 
-const mediumFontWeight = {
-  letterSpacing: 1,
-};
-
 const Header = () =>
   <div style={headerStyle}>
-    <div style={mediumFontWeight}>Provider Directory</div>
+    <div>Provider Directory</div>
     <hr style={hrStyle} />
-    <span style={white}>2.0</span>
+    <div style={versionStyle}>2.0</div>
   </div>;
 
 export default Header;

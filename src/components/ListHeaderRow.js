@@ -37,11 +37,11 @@ const ListHeaderRow = ({ list, actions }) => {
   };
 
   const handleOnClickHeader = (header) => {
-      if (header === list.sorting) {
-        actions.reverse();
-      } else {
-        actions.sort(header);
-      }
+    if (header === list.sorting) {
+      actions.reverse();
+    } else {
+      actions.sort(header);
+    }
   };
 
   return (
@@ -54,7 +54,10 @@ const ListHeaderRow = ({ list, actions }) => {
           style={header === list.sorting ? sortingHeaderstyle : headerStyle}
         >
           {header === list.sorting &&
-            <FontIcon className="material-icons" style={iconStyle}>
+            <FontIcon
+              className="material-icons"
+              style={iconStyle}
+            >
               { list.reversed ? 'arrow_downward' : 'arrow_upward' }
             </FontIcon>
           }
