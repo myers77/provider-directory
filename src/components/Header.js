@@ -7,6 +7,7 @@ const headerStyle = {
   color: 'rgba(0,0,0,0.87)',
   display: 'inline-block',
   height: 102,
+  letterSpacing: 1.5,
 };
 
 const subheaderStyle = {

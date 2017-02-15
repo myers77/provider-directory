@@ -1,5 +1,5 @@
-import { append, compose, contains, curry, filter, isEmpty, map, match, prop, remove, reverse, sortBy, toLower, values, without } from 'ramda';
-import { REVERSE, SORT, SEARCH, TOGGLE_SHOW_ADD_ROW, TOGGLE_SELECTED_ENTRY, DELETE_SELECTED_ROWS } from '../actions';
+import { append, compose, contains, filter, isEmpty, map, match, prop, reverse, sortBy, toLower, values, without } from 'ramda';
+import { REVERSE, SORT, SEARCH, TOGGLE_SHOW_ADD_ROW, TOGGLE_SELECTED_ENTRY, DELETE_SELECTED_ROWS, OPEN_ADD_POPOVER, CLOSE_ADD_POPOVER } from '../actions';
 import seedData from '../data/data.json';
 
 
@@ -22,6 +22,7 @@ const list = (state = {
   searchQuery: '',
   showAddRow: false,
   selectedEntries: [],
+  addPopover: false,
 }, action) => {
   switch (action.type) {
     case REVERSE:
@@ -89,8 +90,19 @@ const list = (state = {
       return {
         ...state,
         data: newData,
+        selectedEntries: [],
       };
     }
+    case OPEN_ADD_POPOVER:
+      return {
+        ...state,
+        addPopover: true,
+      };
+    case CLOSE_ADD_POPOVER:
+      return {
+        ...state,
+        addPopover: false,
+      };
     default:
       return state;
   }

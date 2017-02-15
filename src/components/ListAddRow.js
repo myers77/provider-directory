@@ -7,7 +7,6 @@ import FontIcon from 'material-ui/FontIcon';
 import TextField from 'material-ui/TextField';
 
 import * as Actions from '../actions';
-import './List.css';
 
 const iconStyle = {
   fontSize: 18,
@@ -29,10 +28,9 @@ const ListAddRow = ({ ...otherProps, list, actions }) => {
 
   return (
     <tr>
+      <th colSpan="1"/>
       {list.details.map(header =>
-        <th
-          key={header}
-        >
+        <th key={header} colSpan="1">
           <TextField key={header}
             hintText={titleCase(header)}
           /><br />

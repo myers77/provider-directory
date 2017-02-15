@@ -10,7 +10,8 @@ const iconStyle = {
   fontSize: 18,
   margin: 6,
   left: -6,
-  top: 12,
+  top: 14,
+  position: 'absolute',
 };
 
 const headerStyle = {

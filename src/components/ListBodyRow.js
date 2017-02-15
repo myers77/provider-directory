@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { contains } from 'ramda';
 import Highlighter from 'react-highlight-words';
 import Checkbox from 'material-ui/Checkbox';
-import { cyan500 } from 'material-ui/styles/colors';
+import { cyan500, pinkA200 } from 'material-ui/styles/colors';
 
 import * as Actions from '../actions';
 
@@ -16,7 +16,7 @@ const rowColumnStyle = {
 };
 
 const highlightStyle = {
-  backgroundColor: cyan500,
+  backgroundColor: pinkA200,
   color: '#fff',
 };
 

@@ -1,19 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { filter, map, match, nth } from 'ramda';
-import { Table, TableBody, TableHeader } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
 
-import ListAddRow from './ListAddRow';
 import ListBodyRow from './ListBodyRow';
 import ListHeaderRow from './ListHeaderRow';
 import ListHeaderActionsRow from './ListHeaderActionsRow';
 import * as Actions from '../actions';
-
-const addRowStyle = {
-  animationTimingFunction: 'ease-in',
-};
 
 const List = ({ list, actions }) => {
   return (
@@ -21,7 +14,6 @@ const List = ({ list, actions }) => {
       <table>
         <thead>
           <ListHeaderActionsRow />
-          {list.showAddRow ? <ListAddRow style={addRowStyle} /> : null}
           <ListHeaderRow />
         </thead>
         <tbody>

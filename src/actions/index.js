@@ -4,6 +4,8 @@ export const SEARCH = 'SEARCH';
 export const TOGGLE_SHOW_ADD_ROW = 'TOGGLE_SHOW_ADD_ROW';
 export const TOGGLE_SELECTED_ENTRY = 'TOGGLE_SELECTED_ENTRY';
 export const DELETE_SELECTED_ROWS = 'DELETE_SELECTED_ROWS';
+export const OPEN_ADD_POPOVER = 'OPEN_ADD_POPOVER';
+export const CLOSE_ADD_POPOVER = 'CLOSE_ADD_POPOVER';
 
 export const sort = order => ({
   type: SORT,
@@ -33,4 +35,12 @@ export const deleteSelectedEntries = (selectedEntries, data) => ({
   type: DELETE_SELECTED_ROWS,
   selectedEntries,
   data,
+});
+
+export const openAddPopover = () => ({
+  type: OPEN_ADD_POPOVER,
+});
+
+export const closeAddPopover = () => ({
+  type: CLOSE_ADD_POPOVER,
 });

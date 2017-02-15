@@ -22,7 +22,7 @@ injectTapEventPlugin();
 // const store = createStore(directoryApp, enhancer);
 const store = createStore(
   directoryApp, /* preloadedState, */
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 
 render(
