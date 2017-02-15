@@ -1,20 +1,13 @@
 import React from 'react';
 
 const headerStyle = {
-  margin: 32,
+  margin: 36,
   fontSize: 48,
   textAlign: 'center',
   color: 'rgba(0,0,0,0.87)',
   display: 'inline-block',
   height: 102,
   letterSpacing: 1.5,
-};
-
-const subheaderStyle = {
-  backgroundColor: '#fff',
-  margin: 'auto',
-  height: 24,
-  width: '40%',
 };
 
 const white = {

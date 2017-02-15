@@ -1,5 +1,6 @@
 import {
   append,
+  clone,
   compose,
   contains,
   filter,
@@ -25,6 +26,8 @@ import {
   OPEN_ADD_POPOVER,
   CLOSE_ADD_POPOVER,
   UPDATE_NEW_PROVIDER,
+  CLEAR_NEW_PROVIDER,
+  ADD_NEW_PROVIDER,
 }
 from '../actions';
 
@@ -59,7 +62,7 @@ const list = (state = {
   showAddRow: false,
   selectedEntries: [],
   addPopover: false,
-  newProvider: {},
+  newProvider,
 }, action) => {
   switch (action.type) {
     case REVERSE:
@@ -80,16 +83,14 @@ const list = (state = {
       };
     }
     case SEARCH: {
-      const { searchQuery } = action;
+      let { searchQuery } = action;
       let searchedData = state.data;
-
-      const removeSpecialchars = query =>
-        replace(/[^\w\s@']/gi, '', query);
-
+      console.log(searchQuery);
       if (searchQuery) {
+        searchQuery = replace(/[[^$.|?*+()]/gi, '', searchQuery);
+
         const matches = (object) => {
-          const re = new RegExp(removeSpecialchars(searchQuery), 'i');
-          console.log(re);
+          const re = new RegExp(searchQuery, 'i');
           return !isEmpty(match(re, object));
         };
 
@@ -101,7 +102,7 @@ const list = (state = {
 
       return {
         ...state,
-        searchQuery: replace(/[[^$.|?*+()]/gi, '', searchQuery),
+        searchQuery,
         isSearched: !!searchQuery,
         searchedData,
       };
@@ -149,6 +150,18 @@ const list = (state = {
       return {
         ...state,
         newProvider,
+      };
+    }
+    case CLEAR_NEW_PROVIDER:
+      return {
+        ...state,
+        newProvider: map(() => '', newProvider),
+      };
+    case ADD_NEW_PROVIDER: {
+      const data = append(clone(newProvider), state.data);
+      return {
+        ...state,
+        data,
       };
     }
     default:

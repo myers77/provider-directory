@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { TableHeaderColumn, TableRow } from 'material-ui/Table';
 import FontIcon from 'material-ui/FontIcon';
 
 import * as Actions from '../actions';
@@ -38,7 +37,6 @@ const ListHeaderRow = ({ list, actions }) => {
   };
 
   const handleOnClickHeader = (header) => {
-    console.log(header);
       if (header === list.sorting) {
         actions.reverse();
       } else {

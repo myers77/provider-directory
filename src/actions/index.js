@@ -7,6 +7,8 @@ export const DELETE_SELECTED_ROWS = 'DELETE_SELECTED_ROWS';
 export const OPEN_ADD_POPOVER = 'OPEN_ADD_POPOVER';
 export const CLOSE_ADD_POPOVER = 'CLOSE_ADD_POPOVER';
 export const UPDATE_NEW_PROVIDER = 'UPDATE_NEW_PROVIDER';
+export const CLEAR_NEW_PROVIDER = 'CLEAR_NEW_PROVIDER';
+export const ADD_NEW_PROVIDER = 'ADD_NEW_PROVIDER';
 
 export const sort = order => ({
   type: SORT,
@@ -50,4 +52,12 @@ export const updateNewProvider = (attribute, value) => ({
   type: UPDATE_NEW_PROVIDER,
   attribute,
   value,
+});
+
+export const clearNewProvider = () => ({
+  type: CLEAR_NEW_PROVIDER,
+});
+
+export const addNewProvider = () => ({
+  type: ADD_NEW_PROVIDER,
 });

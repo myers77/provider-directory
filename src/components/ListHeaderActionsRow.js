@@ -8,9 +8,6 @@ import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import { cyan500 } from 'material-ui/styles/colors';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import Divider from 'material-ui/Divider';
 
 import * as Actions from '../actions';
 import './icons.css';
@@ -45,10 +42,6 @@ const ListHeaderActionsRow = ({ list, actions }) => {
     actions.search(list.searchQuery);
     actions.sort(list.sorting);
   };
-
-  const handleDialogFieldChange = (e, newValue) => {
-    actions.updateNewProvider(e.target.name, newValue)
-  }
 
   const newIconClass =
   classNames({

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { isEmpty, map, match } from 'ramda';
 
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -10,25 +11,37 @@ import DialogInput from './DialogInput';
 import * as Actions from '../actions';
 
 
-const NewProviderDialog = ({list, actions }) => {
-  const cancelAddProvider = () => {
+const NewProviderDialog = ({ list, actions }) => {
+  const closeAddProvider = () => {
     actions.closeAddPopover();
+    actions.clearNewProvider();
   };
 
   const addProvider = () => {
-    actions.addProvider();
-    actions.closeAddPopover();
+    actions.addNewProvider();
+    closeAddProvider();
+    actions.search(list.searchQuery);
+    actions.sort(list.sorting);
   };
+
+  const requiredData = ['first_name', 'last_name', 'email_address'];
+
+  const completedInfo =
+    list.newProvider.last_name &&
+    list.newProvider.first_name &&
+    list.newProvider.email_address &&
+    list.newProvider.email_address.match(/^\w+@\w+(\.\w+)$/ig);
 
   const dialogActions = [
     <FlatButton
       label="Cancel"
-      onTouchTap={cancelAddProvider}
+      onTouchTap={closeAddProvider}
     />,
     <FlatButton
       label="Add"
       primary
       keyboardFocused
+      disabled={!completedInfo}
       onTouchTap={addProvider}
     />,
   ];
@@ -39,10 +52,11 @@ const NewProviderDialog = ({list, actions }) => {
       actions={dialogActions}
       modal={false}
       open={list.addPopover}
-      onRequestClose={cancelAddProvider}
+      onRequestClose={closeAddProvider}
     >
       {list.details.map(header =>
         <DialogInput
+          key={header}
           att={header}
         />
       )}

@@ -11,6 +11,7 @@ import * as Actions from '../actions';
 const DialogInput = ({ att, required, list, actions }) => {
   const handleDialogFieldChange = (e, newValue) => {
     actions.updateNewProvider(e.target.name, newValue);
+    console.log(list.newProvider.email_address.match(/\w+@\w+(\.\w+)/ig));
   };
 
   const titleCase = (input) => {
