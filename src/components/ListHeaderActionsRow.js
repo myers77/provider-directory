@@ -14,6 +14,7 @@ import Divider from 'material-ui/Divider';
 
 import * as Actions from '../actions';
 import './icons.css';
+import NewProviderDialog from './NewProviderDialog';
 
 const iconStyle = {
   color: '#fff',
@@ -21,13 +22,15 @@ const iconStyle = {
 
 const buttonStyle = {
   verticalAlign: 'middle',
+  color: '#fff',
+  padding: 12,
 };
 
 const rowStyle = {
   backgroundColor: cyan500,
 };
 
-const ListHeaderActionsRow = ({ ...otherProps, list, actions }) => {
+const ListHeaderActionsRow = ({ list, actions }) => {
   const handleSearchFieldChange = (e, newValue) => {
     actions.search(newValue);
     actions.sort(list.sorting);
@@ -43,80 +46,55 @@ const ListHeaderActionsRow = ({ ...otherProps, list, actions }) => {
     actions.sort(list.sorting);
   };
 
-  const handleCloseDialog = () => {
-    console.log('closed');
-  };
+  const handleDialogFieldChange = (e, newValue) => {
+    actions.updateNewProvider(e.target.name, newValue)
+  }
 
   const newIconClass =
   classNames({
     'material-icons': true,
-    'enabledIcon': !isEmpty(list.selectedEntries),
-    'disabledIcon': isEmpty(list.selectedEntries),
+    enabledIcon: !isEmpty(list.selectedEntries),
+    disabledIcon: isEmpty(list.selectedEntries),
   });
-
-  const dialogActions = [
-    <FlatButton
-      label="Cancel"
-      primary={true}
-    />,
-    <FlatButton
-      label="Submit"
-      primary={true}
-      keyboardFocused={true}
-    />,
-    ];
 
   return (
     <tr style={rowStyle}>
       <th colSpan="5" style={{ textAlign: 'left' }}>
-        <IconButton style={buttonStyle}>
           <FontIcon
             className="material-icons"
-            style={iconStyle}
+            style={buttonStyle}
             color={'white'}
           >
             search
           </FontIcon>
-        </IconButton>
-          <TextField
-            className="search-field"
-            hintText="search"
-            onChange={handleSearchFieldChange}
-          /><br />
-        </th>
+        <TextField
+          className="search-field"
+          hintText="search"
+          onChange={handleSearchFieldChange}
+        /><br />
+      </th>
 
-        <th colSpan="1" style={{ textAlign: 'right' }}>
-        <IconButton style={buttonStyle}>
+      <th colSpan="1" style={{ textAlign: 'right' }}>
+        <IconButton
+          style={buttonStyle}
+          onClick={handleClickAdd}
+        >
           <FontIcon
             className="material-icons"
-            onClick={handleClickAdd}
             style={iconStyle}
             color={'white'}
           >
             add
           </FontIcon>
-          <Dialog
-            title="Add New Provider"
-            actions={dialogActions}
-            modal={false}
-            open={list.addPopover}
-            onRequestClose={handleCloseDialog}
-          >
-                <TextField hintText="First name" underlineShow={false} />
-                <Divider />
-                <TextField hintText="Middle name" underlineShow={false} />
-                <Divider />
-                <TextField hintText="Last name" underlineShow={false} />
-                <Divider />
-                <TextField hintText="Email address" underlineShow={false} />
-                <Divider />
-          </Dialog>
-
         </IconButton>
+        <NewProviderDialog />
 
-        <IconButton disabled={isEmpty(list.selectedEntries)} style={buttonStyle}>
+        <IconButton
+          disabled={isEmpty(list.selectedEntries)}
+          style={buttonStyle}
+          onClick={handleClickDelete}
+        >
           <FontIcon
-            onClick={handleClickDelete}
             color={'white'}
             style={iconStyle}
             className={newIconClass}
@@ -124,7 +102,6 @@ const ListHeaderActionsRow = ({ ...otherProps, list, actions }) => {
             delete
           </FontIcon>
         </IconButton>
-
       </th>
     </tr>
   );

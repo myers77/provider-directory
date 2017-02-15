@@ -18,7 +18,7 @@ const sortingHeader = {
   color: '#222',
 };
 
-const ListAddRow = ({ ...otherProps, list, actions }) => {
+const ListAddRow = ({ list, actions }) => {
   const titleCase = (input) => {
     input = input.replace(/_/, ' ');
     input = input.replace(/\b[a-z](?=[a-z]{2})/g,

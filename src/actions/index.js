@@ -6,6 +6,7 @@ export const TOGGLE_SELECTED_ENTRY = 'TOGGLE_SELECTED_ENTRY';
 export const DELETE_SELECTED_ROWS = 'DELETE_SELECTED_ROWS';
 export const OPEN_ADD_POPOVER = 'OPEN_ADD_POPOVER';
 export const CLOSE_ADD_POPOVER = 'CLOSE_ADD_POPOVER';
+export const UPDATE_NEW_PROVIDER = 'UPDATE_NEW_PROVIDER';
 
 export const sort = order => ({
   type: SORT,
@@ -43,4 +44,10 @@ export const openAddPopover = () => ({
 
 export const closeAddPopover = () => ({
   type: CLOSE_ADD_POPOVER,
+});
+
+export const updateNewProvider = (attribute, value) => ({
+  type: UPDATE_NEW_PROVIDER,
+  attribute,
+  value,
 });

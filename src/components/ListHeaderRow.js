@@ -29,7 +29,7 @@ const rowStyle = {
   userSelect: 'none',
 };
 
-const ListHeaderRow = ({ ...otherProps, list, actions }) => {
+const ListHeaderRow = ({ list, actions }) => {
   const titleCase = (input) => {
     let title = input.replace(/_/, ' ');
     title = title.replace(/\b[a-z](?=[a-z]{2})/g,

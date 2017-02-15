@@ -20,7 +20,7 @@ const highlightStyle = {
   color: '#fff',
 };
 
-const ListBodyRow = ({ att, ...otherProps, list, actions }) => {
+const ListBodyRow = ({ att, list, actions }) => {
   const handleRowSelection = () => {
     actions.toggleSelectedEntry(att, list.selectedEntries);
   };
