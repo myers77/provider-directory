@@ -98,7 +98,6 @@ const list = (state = {
     case SEARCH: {
       let { searchQuery } = action;
       let searchedData = state.data;
-      console.log(searchQuery);
       if (searchQuery) {
         searchQuery = replace(/[[^$.|?*+()]/gi, '', searchQuery);
 
