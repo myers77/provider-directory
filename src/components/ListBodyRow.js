@@ -34,7 +34,7 @@ const ListBodyRow = ({ att, list, actions }) => {
         style={checkboxColStyle}
       >
         <Checkbox
-          onClick={handleRowSelection}
+          onCheck={handleRowSelection}
           checked={contains(att, list.selectedEntries)}
         />
       </td>
