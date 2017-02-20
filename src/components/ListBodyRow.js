@@ -10,6 +10,9 @@ import * as Actions from '../actions';
 
 import './table.css';
 
+const checkboxColStyle = {
+};
+
 const rowColumnStyle = {
   whiteSpace: 'normal',
   wordWrap: 'break-word',
@@ -26,9 +29,12 @@ const ListBodyRow = ({ att, list, actions }) => {
   };
 
   return (
-    <tr onClick={handleRowSelection}>
-      <td className="checkbox">
+    <tr>
+      <td
+        style={checkboxColStyle}
+      >
         <Checkbox
+          onClick={handleRowSelection}
           checked={contains(att, list.selectedEntries)}
         />
       </td>

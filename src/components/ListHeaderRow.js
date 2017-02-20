@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+// import classNames from 'classnames';
 import FontIcon from 'material-ui/FontIcon';
 
 import * as Actions from '../actions';
@@ -9,7 +10,7 @@ const iconStyle = {
   fontSize: 18,
   margin: 6,
   left: -6,
-  top: 14,
+  top: 16,
   position: 'absolute',
 };
 
@@ -19,7 +20,7 @@ const headerStyle = {
 };
 
 const sortingHeaderstyle = {
-  fontWeight: 500,
+  fontWeight: 600,
   color: '#222',
   cursor: 'pointer',
 };
@@ -28,7 +29,31 @@ const rowStyle = {
   userSelect: 'none',
 };
 
+const buttonStyle = {
+  position: 'absolute',
+  color: '#9e9e9e',
+  top: 0,
+  left: 0,
+  background: 'none',
+  border: 'none',
+  outline: 0,
+  padding: 24,
+  height: '100%',
+  content: '',
+  cursor: 'pointer',
+};
+
+const checkboxColStyle = {
+  width: '12%',
+};
+
 const ListHeaderRow = ({ list, actions }) => {
+  // const newIconClass = classNames({
+  //   'material-icons': true,
+  //   enabledIcon: !isEmpty(list.selectedEntries),
+  //   disabledIcon: isEmpty(list.selectedEntries),
+  // });
+
   const titleCase = (input) => {
     let title = input.replace(/_/, ' ');
     title = title.replace(/\b[a-z](?=[a-z]{2})/g,
@@ -46,11 +71,12 @@ const ListHeaderRow = ({ list, actions }) => {
 
   return (
     <tr style={rowStyle}>
-      <th />
+      <th
+        style={checkboxColStyle}
+      />
       {list.details.map(header =>
         <th
           key={header}
-          onClick={() => handleOnClickHeader(header)}
           style={header === list.sorting ? sortingHeaderstyle : headerStyle}
         >
           {header === list.sorting &&
@@ -61,7 +87,12 @@ const ListHeaderRow = ({ list, actions }) => {
               { list.reversed ? 'arrow_downward' : 'arrow_upward' }
             </FontIcon>
           }
-          {titleCase(header)}
+          <button
+            style={{ ...buttonStyle, ...header === list.sorting ? sortingHeaderstyle : null }}
+            onClick={() => handleOnClickHeader(header)}
+          >
+            {titleCase(header)}
+          </button>
         </th>,
       )}
     </tr>

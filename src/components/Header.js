@@ -27,10 +27,12 @@ const hrStyle = {
   marginBottom: 12,
   border: 0,
   height: 1,
-  backgroundImage: `linear-gradient(to right, 
-                    rgba(0, 0, 0, 0),
-                    rgba(0, 0, 0, 0.87),
-                    rgba(0, 0, 0, 0))`,
+  backgroundImage:
+    `linear-gradient(
+      to right, 
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.87),
+      rgba(0, 0, 0, 0))`,
 };
 
 const Header = () =>

@@ -55,7 +55,7 @@ const NewProviderDialog = ({ list, actions }) => {
         <DialogInput
           key={header}
           att={header}
-        />
+        />,
       )}
     </Dialog>
   );
