@@ -4,15 +4,14 @@ export const SEARCH = 'SEARCH';
 export const TOGGLE_SHOW_ADD_ROW = 'TOGGLE_SHOW_ADD_ROW';
 export const TOGGLE_SELECTED_ENTRY = 'TOGGLE_SELECTED_ENTRY';
 export const DELETE_SELECTED_ROWS = 'DELETE_SELECTED_ROWS';
-export const OPEN_ADD_POPOVER = 'OPEN_ADD_POPOVER';
-export const CLOSE_ADD_POPOVER = 'CLOSE_ADD_POPOVER';
+export const TOGGLE_NEW_PROVIDER_DIALOG = 'TOGGLE_NEW_PROVIDER_DIALOG';
 export const UPDATE_NEW_PROVIDER = 'UPDATE_NEW_PROVIDER';
 export const CLEAR_NEW_PROVIDER = 'CLEAR_NEW_PROVIDER';
 export const ADD_NEW_PROVIDER = 'ADD_NEW_PROVIDER';
 
-export const sort = order => ({
+export const sort = sorting => ({
   type: SORT,
-  order,
+  sorting,
 });
 
 export const reverse = () => ({
@@ -40,12 +39,8 @@ export const deleteSelectedEntries = (selectedEntries, data) => ({
   data,
 });
 
-export const openAddPopover = () => ({
-  type: OPEN_ADD_POPOVER,
-});
-
-export const closeAddPopover = () => ({
-  type: CLOSE_ADD_POPOVER,
+export const toggleNewProviderDialog = () => ({
+  type: TOGGLE_NEW_PROVIDER_DIALOG,
 });
 
 export const updateNewProvider = (attribute, value) => ({

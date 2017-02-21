@@ -23,8 +23,7 @@ import {
   TOGGLE_SHOW_ADD_ROW,
   TOGGLE_SELECTED_ENTRY,
   DELETE_SELECTED_ROWS,
-  OPEN_ADD_POPOVER,
-  CLOSE_ADD_POPOVER,
+  TOGGLE_NEW_PROVIDER_DIALOG,
   UPDATE_NEW_PROVIDER,
   CLEAR_NEW_PROVIDER,
   ADD_NEW_PROVIDER,
@@ -40,7 +39,8 @@ const details = [
   'specialty',
   'practice_name',
 ];
-const sorting = details[0];
+
+const sortedData = sortBy(compose(toLower, prop(details[0])), seedData);
 
 const newProvider = {
   last_name: '',
@@ -51,32 +51,21 @@ const newProvider = {
 };
 
 const initialState = {
-  data: sortBy(compose(toLower, prop(sorting)), seedData),
+  data: sortedData,
   details,
-  sorting,
+  sorting: details[0],
   reversed: false,
   isSearched: false,
-  searchedData: sortBy(compose(toLower, prop(sorting)), seedData),
+  searchedData: sortedData,
   searchQuery: '',
   showAddRow: false,
   selectedEntries: [],
   addPopover: false,
   newProvider,
+  showNewProviderDialog: false,
 };
 
-const list = (state = {
-  data: sortBy(compose(toLower, prop(sorting)), seedData),
-  details,
-  sorting,
-  reversed: false,
-  isSearched: false,
-  searchedData: sortBy(compose(toLower, prop(sorting)), seedData),
-  searchQuery: '',
-  showAddRow: false,
-  selectedEntries: [],
-  addPopover: false,
-  newProvider,
-}, action) => {
+const list = (state = initialState, action) => {
   switch (action.type) {
     case REVERSE:
       return {
@@ -85,14 +74,14 @@ const list = (state = {
         reversed: !state.reversed,
       };
     case SORT: {
-      const { order } = action;
-      const sortByAttr = sortBy(compose(toLower, prop(order)));
+      const { sorting } = action;
+      const sortByAttr = sortBy(compose(toLower, prop(sorting)));
+      const searchedData = state.reversed ? reverse(sortByAttr(state.searchedData))
+          : sortByAttr(state.searchedData);
       return {
         ...state,
-        searchedData: state.reversed ? reverse(sortByAttr(state.searchedData))
-          : sortByAttr(state.searchedData),
-        sorting: order,
-        reversed: state.reversed,
+        searchedData,
+        sorting,
       };
     }
     case SEARCH: {
@@ -146,15 +135,10 @@ const list = (state = {
         selectedEntries: [],
       };
     }
-    case OPEN_ADD_POPOVER:
+    case TOGGLE_NEW_PROVIDER_DIALOG:
       return {
         ...state,
-        addPopover: true,
-      };
-    case CLOSE_ADD_POPOVER:
-      return {
-        ...state,
-        addPopover: false,
+        showNewProviderDialog: !state.showNewProviderDialog,
       };
     case UPDATE_NEW_PROVIDER: {
       const { attribute, value } = action;
@@ -180,5 +164,21 @@ const list = (state = {
       return state;
   }
 };
+
+// const list = (state = initialState, action) => {
+//   switch(action.type) {
+//     case REVERSE:
+//     case SORT:
+//     case SEARCH:
+//     case TOGGLE_SHOW_ADD_ROW:
+//     case TOGGLE_SELECTED_ENTRY:
+//     case DELETE_SELECTED_ROWS:
+//     case OPEN_ADD_POPOVER:
+//     case CLOSE_ADD_POPOVER:
+//     case UPDATE_NEW_PROVIDER:
+//     case CLEAR_NEW_PROVIDER:
+//     case ADD_NEW_PROVIDER:
+//   }
+// }
 
 export default list;

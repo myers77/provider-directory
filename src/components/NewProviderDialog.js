@@ -12,7 +12,7 @@ import * as Actions from '../actions';
 
 const NewProviderDialog = ({ list, actions }) => {
   const closeAddProvider = () => {
-    actions.closeAddPopover();
+    actions.toggleNewProviderDialog();
     actions.clearNewProvider();
   };
 
@@ -48,7 +48,7 @@ const NewProviderDialog = ({ list, actions }) => {
       title="Add New Provider"
       actions={dialogActions}
       modal={false}
-      open={list.addPopover}
+      open={list.showNewProviderDialog}
       onRequestClose={closeAddProvider}
     >
       {list.details.map(header =>

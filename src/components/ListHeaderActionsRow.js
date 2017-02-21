@@ -33,7 +33,7 @@ const ListHeaderActionsRow = ({ list, actions }) => {
   };
 
   const handleClickAdd = () => {
-    actions.openAddPopover();
+    actions.toggleNewProviderDialog();
   };
 
   const handleClickDelete = () => {
