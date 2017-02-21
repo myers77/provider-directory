@@ -20,7 +20,6 @@ import {
   REVERSE,
   SORT,
   SEARCH,
-  TOGGLE_SHOW_ADD_ROW,
   TOGGLE_SELECTED_ENTRY,
   DELETE_SELECTED_ROWS,
   TOGGLE_NEW_PROVIDER_DIALOG,
@@ -65,120 +64,106 @@ const initialState = {
   showNewProviderDialog: false,
 };
 
-const list = (state = initialState, action) => {
-  switch (action.type) {
-    case REVERSE:
-      return {
-        ...state,
-        searchedData: reverse(state.searchedData),
-        reversed: !state.reversed,
-      };
-    case SORT: {
-      const { sorting } = action;
-      const sortByAttr = sortBy(compose(toLower, prop(sorting)));
-      const searchedData = state.reversed ? reverse(sortByAttr(state.searchedData))
-          : sortByAttr(state.searchedData);
-      return {
-        ...state,
-        searchedData,
-        sorting,
-      };
-    }
-    case SEARCH: {
-      let { searchQuery } = action;
-      let searchedData = state.data;
-      if (searchQuery) {
-        searchQuery = replace(/[[^$.|?*+()]/gi, '', searchQuery);
+const reverseList = state => ({
+  ...state,
+  searchedData: reverse(state.searchedData),
+  reversed: !state.reversed,
+});
 
-        const matches = (object) => {
-          const re = new RegExp(searchQuery, 'i');
-          return !isEmpty(match(re, object));
-        };
-
-        const containsMatch = object =>
-          contains(true, map(matches, values(object)));
-
-        searchedData = filter(containsMatch, state.data);
-      }
-
-      return {
-        ...state,
-        searchQuery,
-        isSearched: !!searchQuery,
-        searchedData,
-      };
-    }
-    case TOGGLE_SHOW_ADD_ROW:
-      return {
-        ...state,
-        showAddRow: !state.showAddRow,
-      };
-    case TOGGLE_SELECTED_ENTRY: {
-      const { selectedEntry } = action;
-      let { selectedEntries } = action;
-      if (!contains(selectedEntry, selectedEntries)) {
-        selectedEntries = append(selectedEntry, selectedEntries);
-      } else {
-        selectedEntries = without([selectedEntry], selectedEntries);
-      }
-      return {
-        ...state,
-        selectedEntries,
-      };
-    }
-    case DELETE_SELECTED_ROWS: {
-      const { selectedEntries, data } = action;
-      const newData = without(selectedEntries, data);
-      return {
-        ...state,
-        data: newData,
-        selectedEntries: [],
-      };
-    }
-    case TOGGLE_NEW_PROVIDER_DIALOG:
-      return {
-        ...state,
-        showNewProviderDialog: !state.showNewProviderDialog,
-      };
-    case UPDATE_NEW_PROVIDER: {
-      const { attribute, value } = action;
-      newProvider[attribute] = value;
-      return {
-        ...state,
-        newProvider,
-      };
-    }
-    case CLEAR_NEW_PROVIDER:
-      return {
-        ...state,
-        newProvider: map(() => '', newProvider),
-      };
-    case ADD_NEW_PROVIDER: {
-      const data = append(clone(newProvider), state.data);
-      return {
-        ...state,
-        data,
-      };
-    }
-    default:
-      return state;
-  }
+const sort = (state, action) => {
+  const { sorting } = action;
+  const sortByAttr = sortBy(compose(toLower, prop(sorting)));
+  const searchedData = state.reversed ? reverse(sortByAttr(state.searchedData))
+      : sortByAttr(state.searchedData);
+  return {
+    ...state,
+    searchedData,
+    sorting,
+  };
 };
 
-// const list = (state = initialState, action) => {
-//   switch(action.type) {
-//     case REVERSE:
-//     case SORT:
-//     case SEARCH:
-//     case TOGGLE_SHOW_ADD_ROW:
-//     case TOGGLE_SELECTED_ENTRY:
-//     case DELETE_SELECTED_ROWS:
-//     case OPEN_ADD_POPOVER:
-//     case CLOSE_ADD_POPOVER:
-//     case UPDATE_NEW_PROVIDER:
-//     case CLEAR_NEW_PROVIDER:
-//     case ADD_NEW_PROVIDER:
-//   }
-// }
+const search = (state, action) => {
+  let { searchQuery } = action;
+  let searchedData = state.data;
+  if (searchQuery) {
+    searchQuery = replace(/[[^$.|?*+()]/gi, '', searchQuery);
+
+    const matches = (object) => {
+      const re = new RegExp(searchQuery, 'i');
+      return !isEmpty(match(re, object));
+    };
+
+    const containsMatch = object =>
+      contains(true, map(matches, values(object)));
+
+    searchedData = filter(containsMatch, state.data);
+  }
+
+  return {
+    ...state,
+    searchQuery,
+    isSearched: !!searchQuery,
+    searchedData,
+  };
+};
+
+const toggleSelectedEntry = (state, action) => {
+  const { selectedEntry } = action;
+  let { selectedEntries } = action;
+  if (!contains(selectedEntry, selectedEntries)) {
+    selectedEntries = append(selectedEntry, selectedEntries);
+  } else {
+    selectedEntries = without([selectedEntry], selectedEntries);
+  }
+  return {
+    ...state,
+    selectedEntries,
+  };
+};
+
+const deleteSelectedRows = (state, action) => ({
+  ...state,
+  data: without(action.selectedEntries, action.data),
+  selectedEntries: [],
+});
+
+const toggleNewProviderDialog = state => ({
+  ...state,
+  showNewProviderDialog: !state.showNewProviderDialog,
+});
+
+const updateNewProvider = (state, action) => {
+  const { attribute, value } = action;
+  newProvider[attribute] = value;
+  return {
+    ...state,
+    newProvider,
+  };
+};
+
+const clearNewProvider = state => ({
+  ...state,
+  newProvider: map(() => '', newProvider),
+});
+
+const addNewProvider = state => ({
+  ...state,
+  data: append(clone(newProvider), state.data),
+});
+
+const list = (state = initialState, action) => {
+  switch (action.type) {
+    case REVERSE: return reverseList(state);
+    case SORT: return sort(state, action);
+    case SEARCH: return search(state, action);
+    case TOGGLE_SELECTED_ENTRY: return toggleSelectedEntry(state, action);
+    case TOGGLE_NEW_PROVIDER_DIALOG: return toggleNewProviderDialog(state, action);
+    case DELETE_SELECTED_ROWS: return deleteSelectedRows(state, action);
+    case UPDATE_NEW_PROVIDER: return updateNewProvider(state, action);
+    case CLEAR_NEW_PROVIDER: return clearNewProvider(state);
+    case ADD_NEW_PROVIDER: return addNewProvider(state);
+    default: return state;
+  }
+};
 
 export default list;
